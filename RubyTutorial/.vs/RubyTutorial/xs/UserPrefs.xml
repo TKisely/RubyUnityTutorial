@@ -1,0 +1,31 @@
+﻿<Properties StartupConfiguration="{29B4F473-2870-88A7-46F0-02D3B93B6C54}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/RubyController.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Damageable.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/EnemyController.cs" Line="9" Column="21" />
+      <File FileName="Assets/Scripts/HealthCollectible.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/RubyController.cs" Line="38" Column="8" />
+      <File FileName="Assets/Scripts/CogBullet.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="RubyTutorial" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="RubyController.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="5bf96f27-9115-4c74-a215-95a611ea735c" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
