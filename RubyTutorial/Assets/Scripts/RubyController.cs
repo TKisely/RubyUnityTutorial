@@ -9,6 +9,7 @@ public class RubyController : MonoBehaviour
     public int startHealth = 3;
     public float timeInvincible = 1.0f;
     public GameObject projectilePrefab;
+    public ParticleSystem damagedEffect;
 
     private int currentHealth;
     public int health { get { return currentHealth; } }
@@ -27,6 +28,7 @@ public class RubyController : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         currentHealth = startHealth;
         animator = GetComponent<Animator>();
+        damagedEffect.Stop();
 
         //QualitySettings.vSyncCount = 0;
         //Application.targetFrameRate = 28;
@@ -107,6 +109,7 @@ public class RubyController : MonoBehaviour
         if (amount < 0)
         {
             animator.SetTrigger("Hit");
+            damagedEffect.Play();
             if (isInvincible)
                 return;
 
