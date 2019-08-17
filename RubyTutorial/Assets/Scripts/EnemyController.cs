@@ -10,6 +10,8 @@ public class EnemyController : MonoBehaviour
     private bool vertical;
     [SerializeField]
     private ParticleSystem smokeEffect;
+    [SerializeField]
+    private AudioClip hitSound;
 
     private float changeTime = 2.0f;
     private float timer;
@@ -65,6 +67,7 @@ public class EnemyController : MonoBehaviour
         smokeEffect.Stop();
         broken = false;
         rigidbody2D.simulated = false;
+        RubyController.PlaySound(hitSound);
        
     }
 

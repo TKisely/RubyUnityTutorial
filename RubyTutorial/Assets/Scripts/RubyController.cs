@@ -10,6 +10,8 @@ public class RubyController : MonoBehaviour
     public float timeInvincible = 1.0f;
     public GameObject projectilePrefab;
     public ParticleSystem damagedEffect;
+    public AudioClip damagedSound;
+    public AudioClip throwACog;
 
     private int currentHealth;
     public int health { get { return currentHealth; } }
@@ -19,8 +21,10 @@ public class RubyController : MonoBehaviour
     private bool isInvincible;
     float invincibleTimer;
 
-    private Rigidbody2D rigidbody2D;
+    private new Rigidbody2D rigidbody2D;
     private Animator animator;
+
+    private static AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +33,10 @@ public class RubyController : MonoBehaviour
         currentHealth = startHealth;
         animator = GetComponent<Animator>();
         damagedEffect.Stop();
+        UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
+        audioSource = GetComponent<AudioSource>();
+
+        Debug.Log(audioSource);
 
         //QualitySettings.vSyncCount = 0;
         //Application.targetFrameRate = 28;
@@ -42,7 +50,32 @@ public class RubyController : MonoBehaviour
         RigidMovement();
         InvincibleTester();
         ShootingTester();
+        InteractionRayCasting();
         
+    }
+
+    static public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
+        Debug.Log("Sound Played");
+    }
+
+    private void InteractionRayCasting()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(rigidbody2D.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("NPC"));
+            if(hit.collider != null)
+            {
+                //Debug.Log("Raycast has hit an object: " + hit.collider.gameObject);
+                NonPlayerCharacter character = hit.collider.GetComponent<NonPlayerCharacter>();
+
+                if (character != null)
+                {
+                    character.DisplayDialog();
+                }
+            }
+        }
     }
 
     private void ShootingTester()
@@ -61,6 +94,7 @@ public class RubyController : MonoBehaviour
         projectile.Launch(lookDirection, 300);
 
         animator.SetTrigger("Launch");
+        PlaySound(throwACog);
     }
 
     void RigidMovement()
@@ -110,14 +144,17 @@ public class RubyController : MonoBehaviour
         {
             animator.SetTrigger("Hit");
             damagedEffect.Play();
+            
             if (isInvincible)
                 return;
 
             isInvincible = true;
             invincibleTimer = timeInvincible;
+            PlaySound(damagedSound);
         }
 
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+        UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
         Debug.Log(currentHealth + " health from " + maxHealth);
     }
 

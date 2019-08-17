@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class HealthCollectible : MonoBehaviour
 {
+
+    [SerializeField] private AudioClip collectedClip;
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log("Collected clip is a "+collectedClip.GetType());
     }
 
     // Update is called once per frame
@@ -26,6 +28,10 @@ public class HealthCollectible : MonoBehaviour
             {
                 controller.ChangeHealth(1);
                 Destroy(gameObject);
+
+                RubyController.PlaySound(collectedClip);
+                Debug.Log("PlaySound called from Collectible object");
+
             }
         }
     }
